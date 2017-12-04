@@ -1,11 +1,9 @@
 import { Notifications } from 'expo';
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Provider } from 'react-redux';
-import { StackNavigator } from 'react-navigation'
-import store from './store';
+//import NavBar, { NavGroup, NavButton, NavButtonText, NavTitle } from 'react-native-nav'
+import NavBarIOSLight from './NavBarIOSLight';
 import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
-import MainScreen from './screens/MainScreen';
 
 export default class App extends React.Component {
   state = { notification: { origin: 'mock', data: 'mock-data' } }
@@ -23,18 +21,14 @@ export default class App extends React.Component {
     this.setState({notification: notification});
   };
   render() {
-
-    const MainNavigator = StackNavigator({
-      Main: { screen: MainScreen }
-    });
-
     return (
-      <Provider store={store}>
-        <View style={styles.container}>
-          <MainNavigator />
+      <View style={styles.container}>
+        <NavBarIOSLight />
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text>Origin: {this.state.notification.origin}</Text>
+          <Text>Data: {JSON.stringify(this.state.notification.data)}</Text>
         </View>
-      </Provider>
-      
+      </View>
     );
   }
 }
