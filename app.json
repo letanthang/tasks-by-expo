@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "tasks-by-expo",
-    "description": "An empty new project",
+    "description": "Task Management | GHN",
     "slug": "tasks-by-expo",
     "privacy": "public",
     "sdkVersion": "23.0.0",
