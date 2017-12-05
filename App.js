@@ -6,6 +6,7 @@ import { StackNavigator } from 'react-navigation'
 import store from './store';
 import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
 import MainScreen from './screens/MainScreen';
+import TaskScreen from './screens/TaskScreen';
 
 export default class App extends React.Component {
   state = { notification: { origin: 'mock', data: 'mock-data' } }
@@ -25,7 +26,8 @@ export default class App extends React.Component {
   render() {
 
     const MainNavigator = StackNavigator({
-      Main: { screen: MainScreen }
+      Main: { screen: MainScreen },
+      Task: { screen: TaskScreen }
     });
 
     return (
