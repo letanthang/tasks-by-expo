@@ -7,6 +7,7 @@ import store from './store';
 import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
 import MainScreen from './screens/MainScreen';
 import TaskScreen from './screens/TaskScreen';
+import ScannerScreen from './screens/ScannerScreen';
 
 export default class App extends React.Component {
   state = { notification: { origin: 'mock', data: 'mock-data' } }
@@ -27,7 +28,8 @@ export default class App extends React.Component {
 
     const MainNavigator = StackNavigator({
       Main: { screen: MainScreen },
-      Task: { screen: TaskScreen }
+      Task: { screen: TaskScreen },
+      Scanner: { screen: ScannerScreen }
     });
 
     return (

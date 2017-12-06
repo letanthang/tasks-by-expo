@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Platform, TouchableOpacity, Button, FlatList, Text } from 'react-native';
+import { View, Platform, TouchableOpacity, Button, Text, SectionList } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { STATUS_BAR_HEIGHT } from '../constants';
-import { styles } from '../styles';
+import { styles, colors } from '../styles';
 
 
 class TaskScreen extends Component {
@@ -29,12 +30,16 @@ class TaskScreen extends Component {
       </TouchableOpacity>
     ),
     headerRight: (
-      <FontAwesome
-        name='qrcode'
-        size={30}
-        color='#fff'
-        style={styles.rightIconStyle}
-      />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Scanner')}
+      >
+        <FontAwesome
+          name='qrcode'
+          size={30}
+          color='#fff'
+          style={styles.rightIconStyle}
+        />
+      </TouchableOpacity>
     )
   });
 
@@ -55,38 +60,55 @@ class TaskScreen extends Component {
     console.log(this.props.navigation.state.params.task);
     return (
       <View style={styles.contentStyle}>
-        <View style={{ height: 70 }}>
-          <View style={styles.taskItemStyle}>
-            <View style={styles.taskCol1Style}>
-            </View>
-            <View style={styles.taskCol2Style}>
-              <Text>{task.shopName}</Text>
-              <Text>Địa chỉ: {task.address}</Text>
-            </View>
-            <View style={styles.taskCol3Style}>
-            </View>
-          </View>
-        </View>
-        <View style={styles.wrapperStyle}>
-          <FlatList
-            data={task.orders}
-            keyExtractor={(item, index) => item.orderID}
-            renderItem={({item}) => (
-              <View style={styles.taskItemStyle}>
-                <View style={styles.taskCol1Style}>
-                </View>
-                <View style={styles.taskCol2Style}>
-                  <Text>ĐH: {item.orderCode}</Text>
-                  <Text>Phí: {item.costCOD}</Text>
-                  <Text>{item.weight}g | {item.length}x{item.width}x{item.height}</Text>
-                </View>
-                <View style={styles.taskCol3Style}>
-                </View>
+        <SectionList
+          sections={[
+            { data: task.orders, shopName: task.shopName, address: task.address }
+          ]}
+          keyExtractor={(item, index) => item.orderID}
+          renderSectionHeader={({section}) => (
+            <View
+              style={styles.taskItemStyle}
+            >
+              <View style={styles.taskCol1Style}>
+                <Ionicons 
+                  name='ios-call'
+                  size={40}
+                  color='#2978E4'
+                />
               </View>
-            )}
-          />
-        </View>
-        
+              <View style={styles.taskCol2Style}>
+                <Text style={{ color: colors.text1, fontWeight: 'bold' }}>{section.shopName} ({section.data.length})</Text>
+                <Text style={{ color: colors.textNormal }}>{section.address}</Text>
+              </View>
+              <View style={styles.taskCol3Style}>
+                <FontAwesome
+                  name='caret-up'
+                  size={30}
+                  color='#000'
+                  style={{ marginTop: -15 }}
+                />
+              </View>
+            </View>
+          )}
+          renderItem={({item}) => (
+            <View style={styles.taskItemStyle}>
+              <View style={styles.taskCol1Style} />
+              <View style={styles.taskCol2Style}>
+                <Text style={{ color: colors.text2, fontWeight: 'bold' }}>DH: {item.orderCode}</Text>
+                <Text style={{ color: colors.textBlue }}>Phi: {item.costCOD}</Text>
+                <Text style={{ color: colors.textNormal }}>{item.weight}g | {item.length}x{item.width}x{item.height}</Text>
+              </View>
+              <View style={styles.taskCol3Style}>
+                <CheckBox
+                  right
+                  iconRight
+                  containerStyle={{ marginRight: 0, padding: 0, backgroundColor: '#fff', borderColor: '#fff' }}
+                  checked={true}
+                />
+              </View>
+            </View>
+          )}
+        />
       </View>
     );
   }
