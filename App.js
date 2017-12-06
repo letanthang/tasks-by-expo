@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { StackNavigator, TabNavigator } from 'react-navigation'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import store from './store';
 import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
 import MainScreen from './screens/MainScreen';
@@ -67,7 +67,7 @@ export default class App extends React.Component {
           tabBarLabel: 'Settings',
           tabBarIcon: ({ tintColor, focused }) => (
             <Ionicons
-              name={focused ? 'ios-settings' : 'ios-settings-outline'}
+              name={focused ? 'ios-list-box' : 'ios-list-box-outline'}
               size={26}
               style={{ color: tintColor }}
             />
@@ -80,8 +80,8 @@ export default class App extends React.Component {
         navigationOptions: {
           tabBarLabel: 'Settings',
           tabBarIcon: ({ tintColor, focused }) => (
-            <Ionicons
-              name={focused ? 'ios-settings' : 'ios-settings-outline'}
+            <MaterialCommunityIcons
+              name={focused ? 'account' : 'account-outline'}
               size={26}
               style={{ color: tintColor }}
             />
