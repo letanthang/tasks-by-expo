@@ -2,7 +2,8 @@ import { Notifications } from 'expo';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator } from 'react-navigation'
+import { Ionicons } from '@expo/vector-icons';
 import store from './store';
 import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
 import MainScreen from './screens/MainScreen';
@@ -32,10 +33,69 @@ export default class App extends React.Component {
       Scanner: { screen: ScannerScreen }
     });
 
+    const HistoryNavigator = StackNavigator({
+      Main: { screen: MainScreen },
+      Task: { screen: TaskScreen },
+      Scanner: { screen: ScannerScreen }
+    });
+    
+    const InformationNavigator = StackNavigator({
+      Main: { screen: MainScreen },
+      Task: { screen: TaskScreen },
+      Scanner: { screen: ScannerScreen }
+    });
+
+    const StacksInTabs = TabNavigator({
+      MainTab: {
+        screen: MainNavigator,
+        path: '/',
+        navigationOptions: {
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Ionicons
+              name={focused ? 'ios-home' : 'ios-home-outline'}
+              size={26}
+              style={{ color: tintColor }}
+            />
+          ),
+        },
+      },
+      HistoryTab: {
+        screen: HistoryNavigator,
+        path: '/settings',
+        navigationOptions: {
+          tabBarLabel: 'Settings',
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Ionicons
+              name={focused ? 'ios-settings' : 'ios-settings-outline'}
+              size={26}
+              style={{ color: tintColor }}
+            />
+          ),
+        },
+      },
+      InformationTab: {
+        screen: InformationNavigator,
+        path: '/settings',
+        navigationOptions: {
+          tabBarLabel: 'Settings',
+          tabBarIcon: ({ tintColor, focused }) => (
+            <Ionicons
+              name={focused ? 'ios-settings' : 'ios-settings-outline'}
+              size={26}
+              style={{ color: tintColor }}
+            />
+          ),
+        },
+      }
+    });
+
+    
+
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <MainNavigator />
+          <StacksInTabs />
         </View>
       </Provider>
       
