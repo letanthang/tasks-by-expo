@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+
 export const colors = {
   text1: '#222236',
   text2: '#333336',
@@ -11,11 +13,11 @@ export const styles = {
   leftIconStyle: {
     // borderWidth: 1,
     // borderColor: 'red',
-    marginTop: 20,
+    marginTop: Platform.OS === 'android' ? 20 : 0,
     marginLeft: 16,
   },
   rightIconStyle: {
-    marginTop: 20,
+    marginTop: Platform.OS === 'android' ? 20 : 0,
     marginRight: 10,
   },
   imageStyle: {

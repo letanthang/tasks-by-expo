@@ -50,10 +50,10 @@ export default class App extends React.Component {
         screen: MainNavigator,
         path: '/',
         navigationOptions: {
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Công việc',
           tabBarIcon: ({ tintColor, focused }) => (
             <Ionicons
-              name={focused ? 'ios-home' : 'ios-home-outline'}
+              name={focused ? 'ios-list-box' : 'ios-list-box-outline'}
               size={26}
               style={{ color: tintColor }}
             />
@@ -64,10 +64,10 @@ export default class App extends React.Component {
         screen: HistoryNavigator,
         path: '/settings',
         navigationOptions: {
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Lịch sử ',
           tabBarIcon: ({ tintColor, focused }) => (
             <Ionicons
-              name={focused ? 'ios-list-box' : 'ios-list-box-outline'}
+              name={focused ? 'ios-clock' : 'ios-clock-outline' }
               size={26}
               style={{ color: tintColor }}
             />
@@ -78,7 +78,7 @@ export default class App extends React.Component {
         screen: InformationNavigator,
         path: '/settings',
         navigationOptions: {
-          tabBarLabel: 'Settings',
+          tabBarLabel: 'Thông tin',
           tabBarIcon: ({ tintColor, focused }) => (
             <MaterialCommunityIcons
               name={focused ? 'account' : 'account-outline'}
