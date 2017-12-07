@@ -91,17 +91,19 @@ export const styles = {
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 120,
+    paddingTop: 50,
   },
 
   centerTextStyle: {
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#fff'
   },
 
   guideStyle: {
     marginTop: 32,
     paddingLeft: 64,
-    paddingRight: 64
+    paddingRight: 64,
+    backgroundColor: 'transparent'
   }
 
 };

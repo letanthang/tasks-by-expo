@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Platform, Text, TouchableOpacity } from 'react-native';
+import { View, Platform, Text, TouchableOpacity, Alert, StyleSheet, Dimensions } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { STATUS_BAR_HEIGHT } from '../constants';
@@ -31,8 +31,13 @@ class ScannerScreen extends Component {
   });
 
   state = {
-    hasCameraPermission: null
+    hasCameraPermission: null,
+    scanning: true
   };
+  async componentWillMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({hasCameraPermission: status === 'granted'});
+  }
 
   componentDidMount() {
     this._requestCameraPermission();
@@ -50,25 +55,32 @@ class ScannerScreen extends Component {
       'Scan successful!',
       JSON.stringify(data)
     );
+    this.setState({ scanning: false })
   };
 
   render() {
+    const { width, height } = Dimensions.get('window');
     return (
       <View style={styles.contentStyle}>
         {this.state.hasCameraPermission === null ?
             <Text>Requesting for camera permission</Text> :
             this.state.hasCameraPermission === false ?
               <Text>Camera permission is not granted</Text> :
-              <View style={styles.centerStyle}>
+              
                 <BarCodeScanner
+                  
                   onBarCodeRead={this._handleBarCodeRead}
-                  style={{ height: 200, width: 200 }}
-                />
-                <View style={styles.guideStyle}>
-                  <Text style={styles.centerTextStyle}>Di chuyển camera đến vùng chứa mã QR để quét</Text>
-                </View>
-                
-              </View>
+                  style={StyleSheet.absoluteFill}
+                >
+                  <View style={styles.centerStyle}>
+                    <View
+                      style={{ width: width - 32 , height: width - 32, borderWidth: 1, backgroundColor: 'transparent' }} 
+                    />
+                    <View style={styles.guideStyle}>
+                      <Text style={styles.centerTextStyle}>Di chuyển camera đến vùng chứa mã QR để quét</Text>
+                    </View>
+                  </View>
+                </BarCodeScanner>
           }
       </View>
     );
