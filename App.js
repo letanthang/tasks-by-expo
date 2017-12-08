@@ -2,7 +2,7 @@ import { Notifications } from 'expo';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
-import { StackNavigator, TabNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 import { Ionicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import store from './store';
 import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
@@ -88,6 +88,10 @@ export default class App extends React.Component {
           ),
         },
       }
+    },
+    {
+      tabBarComponent: TabBarBottom,
+      tabBarPosition: 'bottom'
     });
 
     

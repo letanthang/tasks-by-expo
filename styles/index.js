@@ -104,6 +104,14 @@ export const styles = {
     paddingLeft: 64,
     paddingRight: 64,
     backgroundColor: 'transparent'
+  },
+  dataStyle: {
+    marginTop: 32,
+    backgroundColor: '#00000033',
+    marginLeft: 64,
+    marginRight: 64,
+    paddingLeft: 32,
+    paddingRight: 32
   }
 
 };

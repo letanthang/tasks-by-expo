@@ -79,6 +79,12 @@ class ScannerScreen extends Component {
                     <View style={styles.guideStyle}>
                       <Text style={styles.centerTextStyle}>Di chuyển camera đến vùng chứa mã QR để quét</Text>
                     </View>
+                    {this.state.data ?
+                      <TouchableOpacity style={styles.dataStyle}>
+                        <Text style={{ color: '#fff' }}>{this.state.data}</Text>
+                      </TouchableOpacity>
+                      : null 
+                    }
                   </View>
                 </BarCodeScanner>
           }
