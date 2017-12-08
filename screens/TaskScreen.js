@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { View, Platform, TouchableOpacity, Button, Text, SectionList } from 'react-native';
+import { connect } from 'react-redux';
 import { CheckBox } from 'react-native-elements';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { STATUS_BAR_HEIGHT } from '../constants';
 import { styles, colors } from '../styles';
+import { init } from '../actions'
 
 
 class TaskScreen extends Component {
@@ -45,19 +47,21 @@ class TaskScreen extends Component {
 
   componentWillMount() {
     this.task = this.props.navigation.state.params.task;
+    const ids = this.task.orders.map(o => o.orderCode);
+    this.props.init(ids);
   }
   
   componentWillReceiveProps(nextProps) {
     console.log('cwrp');
     this.task = this.props.navigation.state.params.task;
-    console.log(task);
+    console.log(nextProps.checkList);
   }
 
   render() {
     const task = this.task;
+    const { checkList } = this.props;
     console.log('render');
-    console.log(task);
-    console.log(this.props.navigation.state.params.task);
+
     return (
       <View style={styles.contentStyle}>
         <SectionList
@@ -65,6 +69,7 @@ class TaskScreen extends Component {
             { data: task.orders, shopName: task.shopName, address: task.address }
           ]}
           keyExtractor={(item, index) => item.orderID}
+          extraData={checkList}
           renderSectionHeader={({section}) => (
             <View
               style={styles.taskItemStyle}
@@ -90,7 +95,12 @@ class TaskScreen extends Component {
               </View>
             </View>
           )}
-          renderItem={({item}) => (
+          renderItem={({item}) => {
+            console.log('renderItem');
+            console.log(checkList);
+            console.log(item.taskCode);
+            console.log(checkList[item.taskCode]);
+            return (
             <View style={styles.taskItemStyle}>
               <View style={styles.taskCol1Style} />
               <View style={styles.taskCol2Style}>
@@ -103,15 +113,20 @@ class TaskScreen extends Component {
                   right
                   iconRight
                   containerStyle={{ marginRight: 0, padding: 0, backgroundColor: '#fff', borderColor: '#fff' }}
-                  checked={true}
+                  checked={checkList[item.orderCode]}
                 />
               </View>
             </View>
-          )}
+          )}}
         />
       </View>
     );
   }
 }
 
-export default TaskScreen;
+const mapStateToProps = ({ CheckItems }) => {
+  const { checkList } = CheckItems;
+  return { checkList };
+}
+
+export default connect(mapStateToProps, { init })(TaskScreen);

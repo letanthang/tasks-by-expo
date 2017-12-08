@@ -100,18 +100,19 @@ export const styles = {
   },
 
   guideStyle: {
-    marginTop: 32,
+    marginTop: 20,
     paddingLeft: 64,
     paddingRight: 64,
     backgroundColor: 'transparent'
   },
   dataStyle: {
-    marginTop: 32,
+    marginTop: 20,
     backgroundColor: '#00000033',
-    marginLeft: 64,
-    marginRight: 64,
-    paddingLeft: 32,
-    paddingRight: 32
+    marginLeft: 32,
+    marginRight: 32,
+    padding: 32,
+    paddingTop: 16,
+    paddingBottom: 16
   }
 
 };

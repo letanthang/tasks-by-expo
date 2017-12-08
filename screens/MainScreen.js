@@ -1,48 +1,10 @@
 import React, { Component } from 'React';
 import { View, Platform, Image, FlatList, Text, Button } from 'react-native';
+import { connect } from 'react-redux';
 import { MaterialIcons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { STATUS_BAR_HEIGHT } from '../constants';
 import { styles } from '../styles';
 import icon from '../assets/icons/search-128.png';
-
-const items = [
-  {
-    taskID: 12,
-    taskType: 'move',
-    taskName: 'Đi lấy ĐH ABC123 trong trip XX',
-    totalNum: 10,
-    totalCOD: 100500,
-    shopName: 'Shop UyenToys',
-    address: '70 Lữ Gia, P.15, Q.10',
-    orders: [
-      {
-        orderID: 1,
-        orderCode: 'ABC',
-        costCOD: 12000,
-        weight: 100,
-        length: 20,
-        width: 20,
-        height: 20
-      },
-      {
-        orderID: 2,
-        orderCode: 'BCD',
-        costCOD: 15500,
-        weight: 200,
-        length: 20,
-        width: 30,
-        height: 30,
-      }
-    ]
-  },
-  {
-    taskID: 34,
-    taskType: 'move',
-    taskName: 'Đi lấy ĐH JKH123 trong trip XY',
-    totalNum: 15,
-    totalCOD: 50500
-  }
-];
 
 class MainScreen extends Component {
   static navigationOptions = () => ({
@@ -76,7 +38,7 @@ class MainScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: '#ccc' }}>
         <FlatList 
-          data={items}
+          data={this.props.tasks}
           renderItem={({ item }) => (
             <View style={styles.rowStyle}>
               <View style={styles.col1Style}>
@@ -109,6 +71,9 @@ class MainScreen extends Component {
   }
 }
 
+const mapStateToProps = ({ Tasks }) => {
+  const { tasks } = Tasks;
+  return { tasks };
+};
 
-
-export default MainScreen;
+export default  connect(mapStateToProps)(MainScreen);

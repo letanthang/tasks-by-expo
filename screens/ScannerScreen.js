@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Platform, Text, TouchableOpacity, Alert, StyleSheet, Dimensions } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import { STATUS_BAR_HEIGHT } from '../constants';
 import { styles, colors } from '../styles';
+import { checkId } from '../actions';
 
 class ScannerScreen extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -27,12 +29,14 @@ class ScannerScreen extends Component {
         style={styles.leftIconStyle}
       />
       </TouchableOpacity>
-    )
+    ),
+    tabBarVisible: false
   });
 
   state = {
     hasCameraPermission: null,
-    scanning: true
+    scanning: true,
+    data: null
   };
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
@@ -50,12 +54,12 @@ class ScannerScreen extends Component {
     });
   };
 
-  _handleBarCodeRead = data => {
-    Alert.alert(
-      'Scan successful!',
-      JSON.stringify(data)
-    );
-    this.setState({ scanning: false })
+  _handleBarCodeRead = ({ type, data} ) => {
+    // Alert.alert(
+    //   'Scan successful!',
+    //   JSON.stringify(data)
+    // );
+    this.setState({ data })
   };
 
   render() {
@@ -80,7 +84,15 @@ class ScannerScreen extends Component {
                       <Text style={styles.centerTextStyle}>Di chuyển camera đến vùng chứa mã QR để quét</Text>
                     </View>
                     {this.state.data ?
-                      <TouchableOpacity style={styles.dataStyle}>
+                      <TouchableOpacity 
+                        style={styles.dataStyle}
+                        onPress={() => {
+                          if (this.props.ids.includes(this.state.data)) {
+                            this.props.checkId(this.state.data);
+                            this.props.navigation.goBack();
+                          }
+                        }}
+                      >
                         <Text style={{ color: '#fff' }}>{this.state.data}</Text>
                       </TouchableOpacity>
                       : null 
@@ -93,4 +105,9 @@ class ScannerScreen extends Component {
   }
 }
 
-export default ScannerScreen;
+const mapStateToProps = ({ CheckItems }) => {
+  const { ids } = CheckItems;
+  return { ids };
+};
+
+export default connect(mapStateToProps, { checkId })(ScannerScreen);
