@@ -28,7 +28,7 @@ export const styles = {
   },
   contentStyle: {
     flex: 1,
-    backgroundColor: '#ccc'
+    backgroundColor: '#ddd'
   },
   wrapperStyle: {
     backgroundColor: '#fff'
@@ -49,10 +49,10 @@ export const styles = {
     flex: 0.15,
   },
   col2Style: {
-    flex: 0.75
+    flex: 0.72
   },
   col3Style: {
-    flex: 0.2
+    flex: 0.23,
   },
   // TaskScreen
   taskSeparator: {
@@ -83,6 +83,37 @@ export const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flex-end'
+  },
+
+  taskButtonStyle: { 
+    backgroundColor: '#009E0F', 
+    marginLeft: 16, 
+    marginRight: 16, 
+    marginBottom: 8, 
+    alignItems: 'center', 
+    padding: 8, 
+    borderRadius: 2 
+  },
+
+  taskButtonStyle0: {
+    backgroundColor: '#ccc',
+    marginLeft: 16, 
+    marginRight: 16, 
+    marginBottom: 8, 
+    alignItems: 'center', 
+    padding: 8, 
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: '#aaa'
+    
+  },
+
+  taskButtonTextStyle: { 
+    color: '#fff' 
+  },
+
+  taskButtonTextStyle0: {
+    color: '#000'
   },
 
   //ScannerScreen

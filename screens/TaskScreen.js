@@ -9,6 +9,7 @@ import { init } from '../actions'
 
 
 class TaskScreen extends Component {
+  state = { completed: false }
   static navigationOptions = ({navigation}) => ({
     title: `Task detail ${navigation.state.params.task.taskID}`,
     headerStyle: {
@@ -53,8 +54,15 @@ class TaskScreen extends Component {
   
   componentWillReceiveProps(nextProps) {
     console.log('cwrp');
-    this.task = this.props.navigation.state.params.task;
-    console.log(nextProps.checkList);
+    const { ids, checkList } = nextProps;
+    if (checkList !== this.props.checkList) {
+
+      console.log(ids.length);
+      console.log(Object.keys(checkList).length)
+      if (ids.length === Object.keys(checkList).length) {
+        this.setState({ completed: true });
+      }
+    }
   }
 
   render() {
@@ -119,14 +127,26 @@ class TaskScreen extends Component {
             </View>
           )}}
         />
+        <View style={{ }}>
+          <TouchableOpacity
+            onPress={() => {
+              if (this.state.completed) {
+                this.props.navigation.goBack();
+              }
+            }}
+            style={this.state.completed ? styles.taskButtonStyle : styles.taskButtonStyle0}
+          >
+            <Text style={this.state.completed ? styles.taskButtonTextStyle : styles.taskButtonTextStyle0}>Nhiệm vụ hoàn thành</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
 const mapStateToProps = ({ CheckItems }) => {
-  const { checkList } = CheckItems;
-  return { checkList };
+  const { ids, checkList } = CheckItems;
+  return { ids, checkList };
 }
 
 export default connect(mapStateToProps, { init })(TaskScreen);
