@@ -63,7 +63,6 @@ export const styles = {
     backgroundColor: '#fff'
   },
   taskItemStyle: {
-    flex: 1,
     flexDirection: 'row',
     paddingLeft: 16,
     paddingRight: 16,
@@ -77,12 +76,14 @@ export const styles = {
   taskCol2Style: {
     flex: 0.75,
   },
+  taskColBigStyle: {
+    flex: 0.875,
+  },
   taskCol3Style: {
     flex: 0.125,
-    // borderWidth: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
 
   taskButtonStyle: { 

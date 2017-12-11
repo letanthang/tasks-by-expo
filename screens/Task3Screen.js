@@ -11,7 +11,7 @@ import { init } from '../actions'
 class TaskScreen extends Component {
   state = { completed: false }
   static navigationOptions = ({navigation}) => ({
-    title: `Nhiệm vụ lấy hàng #${navigation.state.params.task.taskID}`,
+    title: `Nhiệm vụ giao hàng #${navigation.state.params.task.taskID}`,
     headerStyle: {
       height: Platform.OS === 'android' ? 54 + STATUS_BAR_HEIGHT : 54,
       backgroundColor: '#005939'

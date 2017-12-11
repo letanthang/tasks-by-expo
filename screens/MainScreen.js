@@ -59,7 +59,24 @@ class MainScreen extends Component {
                 <Button 
                   title='Nhận'
                   color='#009E0F'
-                  onPress={() => this.props.navigation.navigate('Task', { task: item })}
+                  onPress={() => {
+                    switch(item.taskType) {
+                      case 'pick':
+                        this.props.navigation.navigate('Task', { task: item });
+                        break;
+                      case 'check':
+                        this.props.navigation.navigate('Task1', { task: item });
+                        break;
+                      case 'receive':
+                        this.props.navigation.navigate('Task2', { task: item });
+                        break;
+                      case 'deliver':
+                        this.props.navigation.navigate('Task3', { task: item });
+                        break;
+                      default:
+                        this.props.navigation.navigate('Task', { task: item });
+                    }
+                  }}
                 />
               </View>
             </View>

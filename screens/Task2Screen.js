@@ -11,7 +11,7 @@ import { init } from '../actions'
 class TaskScreen extends Component {
   state = { completed: false }
   static navigationOptions = ({navigation}) => ({
-    title: `Nhiệm vụ lấy hàng #${navigation.state.params.task.taskID}`,
+    title: `Nhiệm vụ bàn giao #${navigation.state.params.task.taskID}`,
     headerStyle: {
       height: Platform.OS === 'android' ? 54 + STATUS_BAR_HEIGHT : 54,
       backgroundColor: '#005939'
@@ -48,7 +48,7 @@ class TaskScreen extends Component {
 
   componentWillMount() {
     this.task = this.props.navigation.state.params.task;
-    const ids = this.task.orders.map(o => o.orderCode);
+    const ids = [this.task.order.orderCode, this.task.positionCode];
     this.props.init(ids);
   }
   
@@ -67,66 +67,42 @@ class TaskScreen extends Component {
 
   render() {
     const task = this.task;
+    const order = task.order;
     const { checkList } = this.props;
     console.log('render');
 
     return (
       <View style={styles.contentStyle}>
-        <SectionList
-          sections={[
-            { data: task.orders, shopName: task.shopName, address: task.address }
-          ]}
-          keyExtractor={(item, index) => item.orderID}
-          extraData={checkList}
-          renderSectionHeader={({section}) => (
-            <View
-              style={styles.taskItemStyle}
-            >
-              <View style={styles.taskCol1Style}>
-                <Ionicons 
-                  name='ios-call'
-                  size={40}
-                  color='#2978E4'
-                />
-              </View>
-              <View style={styles.taskCol2Style}>
-                <Text style={{ color: colors.text1, fontWeight: 'bold' }}>{section.shopName} ({section.data.length})</Text>
-                <Text style={{ color: colors.textNormal }}>{section.address}</Text>
-              </View>
-              <View style={styles.taskCol3Style}>
-                <FontAwesome
-                  name='caret-up'
-                  size={30}
-                  color='#000'
-                  style={{ marginTop: -15 }}
-                />
-              </View>
+        <View style={{ flex: 1 }}>
+          <View style={styles.taskItemStyle}>
+            <View style={styles.taskColBigStyle}>
+              <Text style={{ color: colors.text2, fontWeight: 'bold' }}>DH: {order.orderCode}</Text>
+              <Text style={{ color: colors.textBlue }}>COD: {order.costCOD}</Text>
+              <Text style={{ color: colors.textNormal }}>{order.weight}g | {order.length}x{order.width}x{order.height}</Text>
             </View>
-          )}
-          renderItem={({item}) => {
-            console.log('renderItem');
-            console.log(checkList);
-            console.log(item.taskCode);
-            console.log(checkList[item.taskCode]);
-            return (
-            <View style={styles.taskItemStyle}>
-              <View style={styles.taskCol1Style} />
-              <View style={styles.taskCol2Style}>
-                <Text style={{ color: colors.text2, fontWeight: 'bold' }}>DH: {item.orderCode}</Text>
-                <Text style={{ color: colors.textBlue }}>Phi: {item.costCOD}</Text>
-                <Text style={{ color: colors.textNormal }}>{item.weight}g | {item.length}x{item.width}x{item.height}</Text>
-              </View>
-              <View style={styles.taskCol3Style}>
-                <CheckBox
-                  right
-                  iconRight
-                  containerStyle={{ marginRight: 0, padding: 0, backgroundColor: '#fff', borderColor: '#fff' }}
-                  checked={checkList[item.orderCode]}
-                />
-              </View>
+            <View style={styles.taskCol3Style}>
+              <CheckBox
+                right
+                iconRight
+                containerStyle={{ marginRight: 0, padding: 0, backgroundColor: '#fff', borderColor: '#fff' }}
+                checked={checkList[order.orderCode]}
+              />
             </View>
-          )}}
-        />
+          </View>
+          <View style={styles.taskItemStyle}>
+            <View style={styles.taskColBigStyle}>
+              <Text>Mã rổ A1</Text>
+            </View>
+            <View style={styles.taskCol3Style}>
+              <CheckBox
+                right
+                iconRight
+                containerStyle={{ marginRight: 0, padding: 0, backgroundColor: '#fff', borderColor: '#fff' }}
+                checked={checkList[task.positionCode]}
+              />
+            </View>
+          </View>
+        </View>
         <View style={{ }}>
           <TouchableOpacity
             onPress={() => {

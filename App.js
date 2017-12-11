@@ -8,6 +8,9 @@ import store from './store';
 import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
 import MainScreen from './screens/MainScreen';
 import TaskScreen from './screens/TaskScreen';
+import Task1Screen from './screens/Task1Screen';
+import Task2Screen from './screens/Task2Screen';
+import Task3Screen from './screens/Task3Screen';
 import ScannerScreen from './screens/ScannerScreen';
 
 export default class App extends React.Component {
@@ -36,6 +39,9 @@ export default class App extends React.Component {
     const HistoryNavigator = StackNavigator({
       Main: { screen: MainScreen },
       Task: { screen: TaskScreen },
+      Task1: { screen: Task1Screen },
+      Task2: { screen: Task2Screen },
+      Task3: { screen: Task3Screen },
       Scanner: { screen: ScannerScreen }
     });
     
