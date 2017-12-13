@@ -1,6 +1,6 @@
 import { Permissions, Notifications } from 'expo';
 
-const PUSH_ENDPOINT = 'https://your-server.com/users/push-token';
+const PUSH_ENDPOINT = 'http://ec2-52-15-37-87.us-east-2.compute.amazonaws.com:1234/register-token-device';
 
 export default async function registerForPushNotificationsAsync() {
   const { status: existingStatus } = await Permissions.getAsync(
@@ -26,7 +26,7 @@ export default async function registerForPushNotificationsAsync() {
   let token = await Notifications.getExpoPushTokenAsync();
 
   console.log(token);
-  return null;
+  //return null;
 
   // POST the token to your backend server from where you can retrieve it to send push notifications.
   return fetch(PUSH_ENDPOINT, {
@@ -36,12 +36,9 @@ export default async function registerForPushNotificationsAsync() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      token: {
-        value: token,
-      },
-      user: {
-        username: 'Brent',
-      },
+      secretCode: "MAMFRESH_APP",
+      tokenDevice: token,
+      "userId": 123456
     }),
   });
 }
