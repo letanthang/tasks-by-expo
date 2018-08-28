@@ -43,6 +43,13 @@ class ScannerScreen extends Component {
     this.setState({hasCameraPermission: status === 'granted'});
   }
 
+  componentWillReceiveProps(nextProps) {
+ 
+    if (this.props.checkList !== nextProps.checkList) {
+      this.checkDone();
+    }
+  }
+
   componentDidMount() {
     this._requestCameraPermission();
   }
@@ -60,7 +67,23 @@ class ScannerScreen extends Component {
     //   JSON.stringify(data)
     // );
     this.setState({ data })
+    this.autoCheck(data);
   };
+
+  autoCheck(data) {
+    if (this.props.ids.includes(data)) {
+      this.props.checkId(data);
+    }
+  }
+
+  checkDone() {
+    const { ids, checkList } = this.props;
+    if (ids.length === Object.keys(checkList).length) {
+      // this.setState({ completed: true });
+      this.props.navigation.goBack();
+    }
+  }
+
 
   render() {
     const { width, height } = Dimensions.get('window');
@@ -106,8 +129,8 @@ class ScannerScreen extends Component {
 }
 
 const mapStateToProps = ({ CheckItems }) => {
-  const { ids } = CheckItems;
-  return { ids };
+  const { ids, checkList } = CheckItems;
+  return { ids, checkList };
 };
 
 export default connect(mapStateToProps, { checkId })(ScannerScreen);
