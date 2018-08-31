@@ -1,6 +1,7 @@
 import { Permissions, Notifications } from 'expo';
 
-const PUSH_ENDPOINT = 'http://ec2-52-15-37-87.us-east-2.compute.amazonaws.com:1234/register-token-device';
+// const PUSH_ENDPOINT = 'http://ec2-52-15-37-87.us-east-2.compute.amazonaws.com:1234/register-token-device';
+const PUSH_ENDPOINT = 'http://172.17.13.25:1234/register-token-device'
 
 export default async function registerForPushNotificationsAsync() {
   const { status: existingStatus } = await Permissions.getAsync(
