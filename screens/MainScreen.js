@@ -8,7 +8,7 @@ import icon from '../assets/icons/search-128.png';
 
 class MainScreen extends Component {
   static navigationOptions = () => ({
-    title: 'Task TX',
+    title: 'Task TX expo 28',
     headerStyle: {
       height: Platform.OS === 'android' ? 54 + STATUS_BAR_HEIGHT : 54,
       backgroundColor: '#005939'

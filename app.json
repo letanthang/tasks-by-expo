@@ -4,7 +4,7 @@
     "description": "Task Management | GHN",
     "slug": "tasks-by-expo",
     "privacy": "public",
-    "sdkVersion": "23.0.0",
+    "sdkVersion": "28.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
